@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import React, { useContext } from "react";
-import { Text, Button, StyleSheet, ScrollView } from "react-native";
+import { Text, Button, StyleSheet, ScrollView, View } from "react-native";
 import { Stack, Input, WarningOutlineIcon } from "native-base";
 import { FormContext } from "../../App";
 import * as yup from "yup";
+import { FormNavigation } from "../FormNavigation";
 
 
 export const Address = () => {
@@ -38,22 +39,28 @@ export const Address = () => {
   })
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Address Information</Text>
-      <Stack space={3} w="90%" my="10px">
-        <Input size="md" placeholder="Post Code" keyboardType="number-pad" onChangeText={formikProps.handleChange("postCode")} onBlur={formikProps.handleBlur("postCode")} value={formikProps.values.postCode} />
-        {formikProps.errors.postCode && formikProps.touched.postCode && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.postCode}</Text> </Text>}
-        <Input size="md" placeholder="Country*" isReadOnly={true} onChangeText={formikProps.handleChange("country")} onBlur={formikProps.handleBlur("country")} value={formikProps.values.country} />
-        {formikProps.errors.country && formikProps.touched.country && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.country}</Text> </Text>}
-        <Input size="md" placeholder="Town City*" onChangeText={formikProps.handleChange("city")} onBlur={formikProps.handleBlur("city")} value={formikProps.values.city} />
-        {formikProps.errors.city && formikProps.touched.city && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.city}</Text> </Text>}
-        <Input size="md" placeholder="Zone Sub city*" onChangeText={formikProps.handleChange("subCity")} onBlur={formikProps.handleBlur("subCity")} value={formikProps.values.subCity} />
-        {formikProps.errors.subCity && formikProps.touched.subCity && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.subCity}</Text> </Text>}
-        <Input size="md" placeholder="Woreda Kebele HouseNO*" onChangeText={formikProps.handleChange("houseNo")} onBlur={formikProps.handleBlur("houseNo")} value={formikProps.values.houseNo} />
-        {formikProps.errors.houseNo && formikProps.touched.houseNo && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.houseNo}</Text> </Text>}
-        <Button onPress={formikProps.handleSubmit} title="Submit" />
-      </Stack>
-    </ScrollView >
+    <View style={{
+      backgroundColor: "#fff",
+      flex: 1
+    }}>
+      <FormNavigation />
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Address Information</Text>
+        <Stack space={3} w="90%" my="10px">
+          <Input size="md" placeholder="Post Code" keyboardType="number-pad" onChangeText={formikProps.handleChange("postCode")} onBlur={formikProps.handleBlur("postCode")} value={formikProps.values.postCode} />
+          {formikProps.errors.postCode && formikProps.touched.postCode && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.postCode}</Text> </Text>}
+          <Input size="md" placeholder="Country*" isReadOnly={true} onChangeText={formikProps.handleChange("country")} onBlur={formikProps.handleBlur("country")} value={formikProps.values.country} />
+          {formikProps.errors.country && formikProps.touched.country && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.country}</Text> </Text>}
+          <Input size="md" placeholder="Town City*" onChangeText={formikProps.handleChange("city")} onBlur={formikProps.handleBlur("city")} value={formikProps.values.city} />
+          {formikProps.errors.city && formikProps.touched.city && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.city}</Text> </Text>}
+          <Input size="md" placeholder="Zone Sub city*" onChangeText={formikProps.handleChange("subCity")} onBlur={formikProps.handleBlur("subCity")} value={formikProps.values.subCity} />
+          {formikProps.errors.subCity && formikProps.touched.subCity && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.subCity}</Text> </Text>}
+          <Input size="md" placeholder="Woreda Kebele HouseNO*" onChangeText={formikProps.handleChange("houseNo")} onBlur={formikProps.handleBlur("houseNo")} value={formikProps.values.houseNo} />
+          {formikProps.errors.houseNo && formikProps.touched.houseNo && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.houseNo}</Text> </Text>}
+          <Button onPress={formikProps.handleSubmit} title="Submit" />
+        </Stack>
+      </ScrollView >
+    </View>
 
   );
 }
@@ -63,7 +70,6 @@ const styles = StyleSheet.create(
     container: {
       width: '100%',
       alignItems: "center",
-      backgroundColor: "#fff",
       flex: 1,
     },
     header: {

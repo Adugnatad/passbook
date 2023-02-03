@@ -31,7 +31,6 @@ export default function App() {
             signature, setSignature
           }}
         >
-          <FormNavigation />
           <Route />
         </FormContext.Provider>
       </NativeBaseProvider>

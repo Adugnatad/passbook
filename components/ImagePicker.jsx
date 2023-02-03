@@ -11,7 +11,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 
 import * as ImagePicker from 'expo-image-picker';
 
-export const ImageP = ({ invoker }) => {
+export const ImageP = ({ invoker, navigation }) => {
 
   const [image, setImage] = useState(null);
   const {
@@ -19,6 +19,7 @@ export const ImageP = ({ invoker }) => {
     setPhoto,
     setIdFront,
     setIdBack,
+    setSignature
   } =
     useContext(FormContext);
 
@@ -44,6 +45,11 @@ export const ImageP = ({ invoker }) => {
       if (invoker === 'photo') setPhoto(base64);
       if (invoker === 'idFront') setIdFront(base64);
       if (invoker === 'idBack') setIdBack(base64);
+      if (invoker === 'signiture') {
+        const signature = 'data:image/jpeg;base64,' + base64;
+        setSignature(signature);
+
+      }
 
       if (!result.canceled) {
         setImage(result.assets[0].uri);
@@ -79,15 +85,27 @@ export const ImageP = ({ invoker }) => {
   const RenderInner = () => (
     <View style={styles.panel}>
       <View style={{ alignItems: 'center' }}>
-        <Text style={styles.panelTitle}>Upload Photo</Text>
-        <Text style={styles.panelSubtitle}>Choose Your photo </Text>
+        <Text style={styles.panelTitle}>{invoker !== 'signiture' ? 'Upload Photo' : 'Upload Signiture'}</Text>
       </View>
-      <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
-        <Text style={styles.panelButtonTitle}>Take Photo</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
-        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-      </TouchableOpacity>
+      {invoker !== 'signiture' ?
+        <>
+          <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+            <Text style={styles.panelButtonTitle}>Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+            <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+          </TouchableOpacity>
+        </>
+        :
+        <>
+          <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+            <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.panelButton} onPress={() => { setOpenModal(false), navigation.navigate("Signiture") }}>
+            <Text style={styles.panelButtonTitle}>Sign here</Text>
+          </TouchableOpacity>
+        </>
+      }
       <TouchableOpacity
         style={styles.panelButton}
         onPress={() => refRBSheet.current.close()}>
@@ -148,11 +166,6 @@ const styles = StyleSheet.create({
   panelTitle: {
     fontSize: 27,
     height: 35,
-  },
-  panelSubtitle: {
-    fontSize: 14,
-    color: 'gray',
-    height: 30,
     marginBottom: 10,
   },
   panelButton: {

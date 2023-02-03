@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { TouchableOpacity } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { differenceInYears, format } from 'date-fns'
-import { DropDown } from "../../components";
+import { DropDown, FormNavigation } from "../../components";
 import Ethiopia from "../../assets/Ethiopia.png";
 
 export const PersonalInfo = () => {
@@ -56,7 +56,7 @@ export const PersonalInfo = () => {
           </View>
         </TouchableOpacity>
         <TextInput
-          placeholder="Enter Phone Number"
+          placeholder="Enter Phone Number *"
           placeholderTextColor={"#C7C7CD"}
           selectionColor={"black"}
           keyboardType="number-pad"
@@ -106,38 +106,44 @@ export const PersonalInfo = () => {
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Personal Information</Text>
-      <Stack space={3} w="90%" my="10px">
-        <DropDown title='Title*' fieldName='title' items={[{ label: "MR" }, { label: "MS" }, { label: "MRS" }, { label: "DR" }, { label: "MISS" }]} setFieldValue={setFieldValue} value={formikProps.values.title} touched={formikProps.touched.title} />
-        <Input size="md" placeholder="Full name inc. grandfather name*" onChangeText={formikProps.handleChange("fullName")} onBlur={formikProps.handleBlur("fullName")} value={formikProps.values.fullName} />
-        {formikProps.errors.fullName && formikProps.touched.fullName && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.fullName}</Text> </Text>}
-        <Input size="md" placeholder="Mother Name*" onChangeText={formikProps.handleChange("motherName")} onBlur={formikProps.handleBlur("motherName")} value={formikProps.values.motherName} />
-        {formikProps.errors.motherName && formikProps.touched.motherName && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.motherName}</Text> </Text>}
-        <TouchableOpacity onPress={showDate}>
-          <Input size="md" placeholder="Date of birth*" onChangeText={formikProps.handleChange("DateofBirth")} onBlur={formikProps.handleBlur("DateofBirth")} isReadOnly={true} value={formikProps.values.DateofBirth} />
-        </TouchableOpacity>
-        {formikProps.errors.DateofBirth && formikProps.touched.DateofBirth && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.DateofBirth}</Text> </Text>}
-        <DropDown title='Gender*' fieldName='gender' items={[{ label: "FEMALE" }, { label: "MALE" }]} setFieldValue={setFieldValue} value={formikProps.values.gender} touched={formikProps.touched.gender} />
-        <DropDown title='Marital Status' fieldName='maritalStatus' items={[{ label: "SINGLE" }, { label: "MARRIED" }]} setFieldValue={setFieldValue} value={formikProps.values.maritalStatus} touched={formikProps.touched.gender} />
-        {PhoneCountry()}
-        {formikProps.errors.phoneNumber && formikProps.touched.phoneNumber && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.phoneNumber}</Text> </Text>}
-        <Input size="md" placeholder="Email" onChangeText={formikProps.handleChange("email")} onBlur={formikProps.handleBlur("email")} value={formikProps.values.email} />
-        {formikProps.errors.email && formikProps.touched.email && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.email}</Text> </Text>}
-        <Button onPress={formikProps.handleSubmit} title="Submit" />
-      </Stack>
+    <View style={{
+      backgroundColor: "#fff",
+      flex: 1
+    }}>
+      <FormNavigation />
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Personal Information</Text>
+        <Stack space={3} w="90%" my="10px">
+          <DropDown title='Title*' fieldName='title' items={[{ label: "MR" }, { label: "MS/MRS/MISS" }, { label: "DR" }]} setFieldValue={setFieldValue} value={formikProps.values.title} touched={formikProps.touched.title} />
+          <Input size="md" placeholder="Full name inc. grandfather name*" onChangeText={formikProps.handleChange("fullName")} onBlur={formikProps.handleBlur("fullName")} value={formikProps.values.fullName} />
+          {formikProps.errors.fullName && formikProps.touched.fullName && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.fullName}</Text> </Text>}
+          <Input size="md" placeholder="Mother Name*" onChangeText={formikProps.handleChange("motherName")} onBlur={formikProps.handleBlur("motherName")} value={formikProps.values.motherName} />
+          {formikProps.errors.motherName && formikProps.touched.motherName && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.motherName}</Text> </Text>}
+          <TouchableOpacity onPress={showDate}>
+            <Input size="md" placeholder="Date of birth*" onChangeText={formikProps.handleChange("DateofBirth")} onBlur={formikProps.handleBlur("DateofBirth")} isReadOnly={true} value={formikProps.values.DateofBirth} />
+          </TouchableOpacity>
+          {formikProps.errors.DateofBirth && formikProps.touched.DateofBirth && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.DateofBirth}</Text> </Text>}
+          <DropDown title='Gender*' fieldName='gender' items={[{ label: "FEMALE" }, { label: "MALE" }]} setFieldValue={setFieldValue} value={formikProps.values.gender} touched={formikProps.touched.gender} />
+          <DropDown title='Marital Status' fieldName='maritalStatus' items={[{ label: "SINGLE" }, { label: "MARRIED" }]} setFieldValue={setFieldValue} value={formikProps.values.maritalStatus} touched={formikProps.touched.gender} />
+          {PhoneCountry()}
+          {formikProps.errors.phoneNumber && formikProps.touched.phoneNumber && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.phoneNumber}</Text> </Text>}
+          <Input size="md" placeholder="Email" onChangeText={formikProps.handleChange("email")} onBlur={formikProps.handleBlur("email")} value={formikProps.values.email} />
+          {formikProps.errors.email && formikProps.touched.email && <Text style={styles.errorText}><WarningOutlineIcon size="xs" color='red.500' /> <Text>{formikProps.errors.email}</Text> </Text>}
+          <Button onPress={formikProps.handleSubmit} title="Submit" />
+        </Stack>
 
-      {
-        show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date ? date : new Date()}
-            mode={'date'}
-            onChange={onChange}
-          />
-        )
-      }
-    </ScrollView >
+        {
+          show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date ? date : new Date()}
+              mode={'date'}
+              onChange={onChange}
+            />
+          )
+        }
+      </ScrollView >
+    </View>
 
   );
 }
@@ -147,7 +153,6 @@ const styles = StyleSheet.create(
     container: {
       width: '100%',
       alignItems: "center",
-      backgroundColor: "#fff",
     },
     header: {
       fontSize: 20,

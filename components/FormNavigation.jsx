@@ -13,6 +13,10 @@ export const FormNavigation = () => {
       setActiveStepIndex(index);
     } else if (index === 2 && formData.country !== undefined) {
       setActiveStepIndex(index)
+    } else if (index === 3) {
+      setActiveStepIndex(index)
+    } else if (index === 4) {
+      setActiveStepIndex(index)
     } else {
       alert("please complete the previous form");
     }
@@ -36,6 +40,18 @@ export const FormNavigation = () => {
         <TouchableOpacity onPress={() => changeScreen(2)}>
           <View style={tw`w-8 h-8 text-center font-medium border-[1px] ${activeStepIndex === 2 ? "border-[0px] bg-indigo-500 " : ""} border-[#ddd] rounded-full flex items-center justify-center`}>
             <Text style={tw` ${activeStepIndex === 2 ? "text-white" : ""}`}>3</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={tw`flex-auto border-t-2 border-[#ddd]`}></View>
+        <TouchableOpacity onPress={() => changeScreen(3)}>
+          <View style={tw`w-8 h-8 text-center font-medium border-[1px] ${activeStepIndex === 3 ? "border-[0px] bg-indigo-500 " : ""} border-[#ddd] rounded-full flex items-center justify-center`}>
+            <Text style={tw` ${activeStepIndex === 3 ? "text-white" : ""}`}>4</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={tw`flex-auto border-t-2 border-[#ddd]`}></View>
+        <TouchableOpacity onPress={() => changeScreen(4)}>
+          <View style={tw`w-8 h-8 text-center font-medium border-[1px] ${activeStepIndex === 4 ? "border-[0px] bg-indigo-500 " : ""} border-[#ddd] rounded-full flex items-center justify-center`}>
+            <Text style={tw` ${activeStepIndex === 4 ? "text-white" : ""}`}>5</Text>
           </View>
         </TouchableOpacity>
       </View>
